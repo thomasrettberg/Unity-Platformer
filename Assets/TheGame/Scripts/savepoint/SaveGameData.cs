@@ -57,7 +57,6 @@ public class SaveGameData {
     {
         if (OnLoad != null)
         {
-
             OnLoad(this);
         }
     }

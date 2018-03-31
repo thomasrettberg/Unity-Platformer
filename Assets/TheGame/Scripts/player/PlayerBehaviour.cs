@@ -61,6 +61,12 @@ public class PlayerBehaviour : MonoBehaviour
     /// </summary>
     private bool isGrounded = true;
 
+    /// <summary>
+    /// Überprüft, ob die Taste zum Springen gedrückt ist.
+    /// Verbessert das Sprungverhalten.
+    /// </summary>
+    private bool isJumpTriggered = false;
+
     private void Awake()
     {
         SaveGameData.OnSave += Saveme;
@@ -152,8 +158,16 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (Input.GetAxis("Jump") > 0f && isGrounded)
         {
-            rigidBody.AddRelativeForce(Vector3.up * jumpSpeed, ForceMode.Impulse);
+            if (!isJumpTriggered)
+            {
+                rigidBody.AddRelativeForce(Vector3.up * jumpSpeed, ForceMode.Impulse);
+            }
+            isJumpTriggered = true;
         }
+        else
+        {
+            isJumpTriggered = false;
+        } 
         rigidBody.AddRelativeForce(Vector3.down * gravitySpeed);
     }
 
