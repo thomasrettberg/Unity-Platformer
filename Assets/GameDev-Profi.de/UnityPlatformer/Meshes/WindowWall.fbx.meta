@@ -1,0 +1,197 @@
+fileFormatVersion: 2
+guid: ac515a8ce9400854daab230878f45a85
+timeCreated: 1517922532
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Barrel
+    100002: BigPaperBox
+    100004: CageFull
+    100006: CageGrid
+    100008: CageGridDeformed
+    100010: Camera
+    100012: CardboardBox
+    100014: Chair
+    100016: Console
+    100018: DoorMetal
+    100020: Fence
+    100022: FencePole
+    100024: LabBox
+    100026: Lamp
+    100028: Lamp.001
+    100030: Slope
+    100032: Trainer
+    100034: Wall-Door
+    100036: //RootNode
+    100038: WindowWall
+    400000: Barrel
+    400002: BigPaperBox
+    400004: CageFull
+    400006: CageGrid
+    400008: CageGridDeformed
+    400010: Camera
+    400012: CardboardBox
+    400014: Chair
+    400016: Console
+    400018: DoorMetal
+    400020: Fence
+    400022: FencePole
+    400024: LabBox
+    400026: Lamp
+    400028: Lamp.001
+    400030: Slope
+    400032: Trainer
+    400034: Wall-Door
+    400036: //RootNode
+    400038: WindowWall
+    2000000: Camera
+    2100000: WindowGlas
+    2100002: Chair
+    2100004: Wall
+    2100006: TrainerMetal
+    2100008: ConsoleSignalOn
+    2100010: Barrel
+    2100012: DoorMetal
+    2100014: CageGrid
+    2100016: ConsoleMetal
+    2100018: LampBulbOff
+    2100020: LabBox
+    2100022: CardboardBox
+    2100024: Paper
+    2100026: LampMetal
+    2100028: LampMetalOn
+    2300000: Barrel
+    2300002: BigPaperBox
+    2300004: CageFull
+    2300006: CageGrid
+    2300008: CageGridDeformed
+    2300010: CardboardBox
+    2300012: Chair
+    2300014: Console
+    2300016: DoorMetal
+    2300018: Fence
+    2300020: FencePole
+    2300022: LabBox
+    2300024: Lamp
+    2300026: Slope
+    2300028: Trainer
+    2300030: Wall-Door
+    2300032: WindowWall
+    2300034: //RootNode
+    3300000: Barrel
+    3300002: BigPaperBox
+    3300004: CageFull
+    3300006: CageGrid
+    3300008: CageGridDeformed
+    3300010: CardboardBox
+    3300012: Chair
+    3300014: Console
+    3300016: DoorMetal
+    3300018: Fence
+    3300020: FencePole
+    3300022: LabBox
+    3300024: Lamp
+    3300026: Slope
+    3300028: Trainer
+    3300030: Wall-Door
+    3300032: WindowWall
+    3300034: //RootNode
+    4300000: WindowWall
+    4300002: Trainer
+    4300004: Slope
+    4300006: Barrel
+    4300008: DoorMetal
+    4300010: Wall-Door
+    4300012: Fence
+    4300014: FencePole
+    4300016: Console
+    4300018: Chair
+    4300020: LabBox
+    4300022: BigPaperBox
+    4300024: Lamp
+    4300026: CardboardBox
+    4300028: CageGridDeformed
+    4300030: CageFull
+    4300032: CageGrid
+    10800000: Lamp.001
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

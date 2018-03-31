@@ -1,0 +1,28 @@
+Die Audio-Dateien stammen aus Sound-Archiven, in denen sie 
+unter der CC-0-Lizenz veröffentlicht wurden. Sie können also 
+in allen Projekten frei genutzt werden und erfordern keine Namensnennung.
+
+Die Quellen der Dateien sind: 
+
+104412__nanashi__trigger-with-hammer-fall.wav
+https://freesound.org/people/Nanashi/sounds/104412/
+
+163460__lemudcrab__sniper-shot.wav
+https://freesound.org/people/LeMudCrab/sounds/163460/
+
+191947__aiyumi__glass-door-slide02.flac
+https://freesound.org/people/Aiyumi/sounds/191947/
+
+257357__brnck__button-click.wav
+https://freesound.org/people/brnck/sounds/257357/
+
+396331__nioczkus__1911-reload.aiff
+https://freesound.org/people/nioczkus/sounds/396331/
+
+401609__1histori__air-explosion.wav
+https://freesound.org/people/1histori/sounds/401609/
+
+Alien Spaceship Atmosphere CC0.mp3
+http://freepd.com/Atmosphere/Alien%20Spaceship%20Atmosphere
+
+
