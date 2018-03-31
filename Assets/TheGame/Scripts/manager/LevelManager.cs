@@ -87,6 +87,7 @@ public class LevelManager : MonoBehaviour {
         yield return new WaitForSeconds(2f);
         if (revertToSaveGame)
         {
+            LoadLastSaveGame();
             Loadme(savegame);
         }
     }
