@@ -17,8 +17,7 @@ public class LevelManager : MonoBehaviour {
 
     private void Start()
     {
-        LoadLastSaveGame();
-        Loadme(savegame);
+        RevertToSaveGame(true);
         canvasFader = FindObjectOfType<CanvasFader>();
     }
 
@@ -85,6 +84,15 @@ public class LevelManager : MonoBehaviour {
         revertToSaveGame = true;
         canvasFader.FadeOut();
         yield return new WaitForSeconds(2f);
+        RevertToSaveGame(revertToSaveGame);
+    }
+
+    /// <summary>
+    /// Lädt zum nächsten bekannten Speicherpunkt.
+    /// </summary>
+    /// <param name="revertToSaveGame">Soll geladen werden, oder nicht?</param>
+    private void RevertToSaveGame(bool revertToSaveGame)
+    {
         if (revertToSaveGame)
         {
             LoadLastSaveGame();
