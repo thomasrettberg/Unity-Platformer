@@ -22,6 +22,7 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField] GameObject cameraLookAtObject;
     private CapsuleCollider capsule;
     private float oldRadius;
+    private bool isPlayerAlive = true;
 
     /// <summary>
     /// Bezeichner der Horizonal-Axis.
@@ -115,11 +116,26 @@ public class PlayerBehaviour : MonoBehaviour
     // Update is called once per frame
     private void Update ()
     {
-        if (Time.timeScale == 0f) return;
+        if (GameIsPaused() || PlayerIsDead()) { return; }
         float axisValue = Input.GetAxis(horizontalAxis);
         float vertical = rigidBody.velocity.y;
         HandleMove(horizontalAxis, axisValue);
         HandleJump(vertical);
+    }
+
+    private bool GameIsPaused()
+    {
+        return Time.timeScale == 0f;
+    }
+
+    private bool PlayerIsDead()
+    {
+        if (transform.position.y > -3f)
+        {
+            return false;
+        }
+        isPlayerAlive = false;
+        return true;
     }
 
     private void OnCollisionStay(Collision collision)
@@ -263,5 +279,10 @@ public class PlayerBehaviour : MonoBehaviour
     private void PlayMoveAnimation(float axisValue)
     {
         animator.SetFloat("forward", Mathf.Abs(axisValue));
+    }
+
+    public bool IsPlayerAlive()
+    {
+        return isPlayerAlive;
     }
 }

@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour {
 
     private SaveGameData savegame;
+    private PlayerBehaviour player;
 
     private void Awake()
     {
@@ -17,6 +18,11 @@ public class LevelManager : MonoBehaviour {
     {
         LoadLastSaveGame();
         Loadme(savegame);
+    }
+
+    private void Update()
+    {
+        HandlePlayerAliveStatus();
     }
 
     private void OnDestroy()
@@ -53,5 +59,17 @@ public class LevelManager : MonoBehaviour {
     private void LoadLastSaveGame()
     {
         savegame = SaveGameData.LoadData(); 
+    }
+
+    /// <summary>
+    /// Überprüft pro Frame, ob der Spieler noch lebt.
+    /// Falls nein, lade vom letzten bekannten Speicherpunkt.
+    /// </summary>
+    private void HandlePlayerAliveStatus()
+    {
+        player = FindObjectOfType<PlayerBehaviour>();
+        if (player.IsPlayerAlive()) { return; }
+        player.enabled = false;
+        Loadme(savegame);
     }
 }
