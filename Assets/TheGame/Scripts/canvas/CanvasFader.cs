@@ -5,6 +5,11 @@ public class CanvasFader : MonoBehaviour {
 
     [SerializeField] Image image;
 
+    private void Start()
+    {
+        image.gameObject.SetActive(true);
+    }
+
     private void PerformFading(float toAlpha)
     {
         image.CrossFadeAlpha(toAlpha, 1f, false);

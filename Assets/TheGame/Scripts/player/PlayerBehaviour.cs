@@ -104,6 +104,7 @@ public class PlayerBehaviour : MonoBehaviour
     // Use this for initialization
     private void Start ()
     {
+        SetToRagdollMode(false);
         rigidBody = GetComponent<Rigidbody>();
         animator = GetComponentInChildren<Animator>();
         capsule = GetComponent<CapsuleCollider>();
@@ -132,6 +133,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             return false;
         }
+        SetToRagdollMode(true);
         isPlayerAlive = false;
         return true;
     }
@@ -140,6 +142,21 @@ public class PlayerBehaviour : MonoBehaviour
     {
         RaycastHit hitInfo;
         isGrounded = Physics.Raycast(transform.position + (Vector3.up * 0.1f), Vector3.down, out hitInfo, 0.12f);
+    }
+
+    private void SetToRagdollMode(bool isDead)
+    {
+        foreach(Collider col in GetComponentsInChildren<Collider>())
+        {
+            col.enabled = isDead;
+        }
+        foreach(Rigidbody rig in GetComponentsInChildren<Rigidbody>())
+        {
+            rig.isKinematic = !isDead;
+        }
+        GetComponent<Rigidbody>().isKinematic = isDead;
+        GetComponent<Collider>().enabled = !isDead;
+        GetComponentInChildren<Animator>().enabled = !isDead;
     }
 
     /// <summary>
