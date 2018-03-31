@@ -8,26 +8,39 @@ public class LevelManager : MonoBehaviour {
 
     private SaveGameData savegame;
     private PlayerBehaviour player;
+    private CanvasFader canvasFader;
+    private bool revertToSaveGame = false;
 
     private void Awake()
     {
         SaveGameData.OnSave += Saveme;
+        SceneManager.sceneLoaded += WhenSceneWasLoaded;
     }
 
     private void Start()
     {
         LoadLastSaveGame();
         Loadme(savegame);
+        canvasFader = FindObjectOfType<CanvasFader>();
     }
 
     private void Update()
     {
-        HandlePlayerAliveStatus();
+       StartCoroutine(HandlePlayerAliveStatus());
     }
 
     private void OnDestroy()
     {
         SaveGameData.OnSave -= Saveme;
+        SceneManager.sceneLoaded -= WhenSceneWasLoaded;
+    }
+
+    private void WhenSceneWasLoaded(Scene scene, LoadSceneMode loadSceneMode)
+    {
+        if (canvasFader != null)
+        {
+            canvasFader.FadeIn();
+        }
     }
 
     private void Saveme(SaveGameData savegame)
@@ -42,6 +55,7 @@ public class LevelManager : MonoBehaviour {
     {
         SwitchToScene(savegame.currentLevel);
         savegame.TriggerOnLoad();
+        revertToSaveGame = false;
     }
 
     public static void SwitchToScene(int levelInBuildIndex)
@@ -65,11 +79,17 @@ public class LevelManager : MonoBehaviour {
     /// Überprüft pro Frame, ob der Spieler noch lebt.
     /// Falls nein, lade vom letzten bekannten Speicherpunkt.
     /// </summary>
-    private void HandlePlayerAliveStatus()
+    private IEnumerator HandlePlayerAliveStatus()
     {
         player = FindObjectOfType<PlayerBehaviour>();
-        if (player.IsPlayerAlive()) { return; }
+        if (player.IsPlayerAlive()) { yield break; }
         player.enabled = false;
-        Loadme(savegame);
+        revertToSaveGame = true;
+        canvasFader.FadeOut();
+        yield return new WaitForSeconds(2f);
+        if (revertToSaveGame)
+        {
+            Loadme(savegame);
+        }
     }
 }
