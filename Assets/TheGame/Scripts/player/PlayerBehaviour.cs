@@ -22,6 +22,7 @@ public class PlayerBehaviour : MonoBehaviour
     private float oldRadius;
     private bool isPlayerAlive = true;
     private float health = 1f;
+    private RaycastHit hitInfo;
 
     /// <summary>
     /// Bezeichner der Horizonal-Axis.
@@ -145,6 +146,12 @@ public class PlayerBehaviour : MonoBehaviour
     {
         isGrounded = collision.gameObject.CompareTag("ground");
         isHittingDoor = collision.gameObject.CompareTag("door");
+        Slide(Vector3.Angle(Vector3.up, hitInfo.normal));
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+      isGrounded = Physics.Raycast(transform.position + (Vector3.up * 0.1f), Vector3.down, out hitInfo, 0.25f);
     }
 
     /// <summary>
@@ -165,6 +172,15 @@ public class PlayerBehaviour : MonoBehaviour
         GetComponent<Rigidbody>().isKinematic = isDead;
         GetComponent<Collider>().enabled = !isDead;
         GetComponentInChildren<Animator>().enabled = !isDead;
+    }
+
+    private void Slide(float angle)
+    {
+        if (isGrounded && angle > 10f)
+        {
+            float slideFactor = angle / 5f;
+            rigidBody.AddForce(slideFactor * hitInfo.normal);
+        }
     }
 
     /// <summary>
@@ -302,11 +318,6 @@ public class PlayerBehaviour : MonoBehaviour
     {
         animator.SetBool("grounded", (isHittingDoor || isGrounded));
         animator.SetFloat("jumpSpeed", vertical);
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        isGrounded = false;
     }
 
     /// <summary>
