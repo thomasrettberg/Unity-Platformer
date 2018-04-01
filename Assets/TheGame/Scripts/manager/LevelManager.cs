@@ -11,6 +11,8 @@ public class LevelManager : MonoBehaviour {
 
     private void Awake()
     {
+
+        canvasFader = FindObjectOfType<CanvasFader>();
         SaveGameData.OnSave += Saveme;
         SceneManager.sceneLoaded += WhenSceneWasLoaded;
     }
@@ -18,7 +20,6 @@ public class LevelManager : MonoBehaviour {
     private void Start()
     {
         RevertToSaveGame(true);
-        canvasFader = FindObjectOfType<CanvasFader>();
     }
 
     private void Update()
@@ -36,7 +37,7 @@ public class LevelManager : MonoBehaviour {
     {
         if (canvasFader != null)
         {
-            canvasFader.FadeIn();
+            canvasFader.FadeIn(1f);
         }
     }
 
@@ -82,8 +83,8 @@ public class LevelManager : MonoBehaviour {
         if (player.IsPlayerAlive()) { yield break; }
         player.enabled = false;
         revertToSaveGame = true;
-        canvasFader.FadeOut();
-        yield return new WaitForSeconds(2f);
+        canvasFader.FadeOut(3f);
+        yield return new WaitUntil(() => Input.GetAxis("Continue Game") > 0f);
         RevertToSaveGame(revertToSaveGame);
     }
 

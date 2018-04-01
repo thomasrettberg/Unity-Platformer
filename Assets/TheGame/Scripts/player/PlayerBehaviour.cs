@@ -21,6 +21,7 @@ public class PlayerBehaviour : MonoBehaviour
     private CapsuleCollider capsule;
     private float oldRadius;
     private bool isPlayerAlive = true;
+    private float health = 1f;
 
     /// <summary>
     /// Bezeichner der Horizonal-Axis.
@@ -59,6 +60,7 @@ public class PlayerBehaviour : MonoBehaviour
     /// False, die Spielfigur fällt oder springt gerade.
     /// </summary>
     private bool isGrounded = true;
+    private bool isHittingDoor = false;
 
     /// <summary>
     /// Überprüft, ob die Taste zum Springen gedrückt ist.
@@ -90,6 +92,7 @@ public class PlayerBehaviour : MonoBehaviour
     private void Saveme(SaveGameData savegame)
     {
         savegame.playerPosition = transform.position;
+        savegame.playerHealth = health;
     }
 
     private void Loadme(SaveGameData savegame)
@@ -115,21 +118,21 @@ public class PlayerBehaviour : MonoBehaviour
     // Update is called once per frame
     private void Update ()
     {
-        if (GameIsPaused() || PlayerIsDead()) { return; }
+        if (IsGamePaused() || IsPlayerDead()) { return; }
         float axisValue = Input.GetAxis(horizontalAxis);
         float vertical = rigidBody.velocity.y;
         HandleMove(horizontalAxis, axisValue);
         HandleJump(vertical);
     }
 
-    private bool GameIsPaused()
+    private bool IsGamePaused()
     {
         return Time.timeScale == 0f;
     }
 
-    private bool PlayerIsDead()
+    private bool IsPlayerDead()
     {
-        if (transform.position.y > -3f)
+        if (transform.position.y > -3f && health > 0f)
         {
             return false;
         }
@@ -140,10 +143,15 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void OnCollisionStay(Collision collision)
     {
-        RaycastHit hitInfo;
-        isGrounded = Physics.Raycast(transform.position + (Vector3.up * 0.1f), Vector3.down, out hitInfo, 0.12f);
+        isGrounded = collision.gameObject.CompareTag("ground");
+        isHittingDoor = collision.gameObject.CompareTag("door");
     }
 
+    /// <summary>
+    /// Schaltet auf das Ragdoll-Modell, sollte der Spieler tot sein.
+    /// So wird ein realistisches Sterbeverhalten realisiert.
+    /// </summary>
+    /// <param name="isDead">Wenn true, wechsel auf Ragdoll.</param>
     private void SetToRagdollMode(bool isDead)
     {
         foreach(Collider col in GetComponentsInChildren<Collider>())
@@ -157,6 +165,15 @@ public class PlayerBehaviour : MonoBehaviour
         GetComponent<Rigidbody>().isKinematic = isDead;
         GetComponent<Collider>().enabled = !isDead;
         GetComponentInChildren<Animator>().enabled = !isDead;
+    }
+
+    /// <summary>
+    /// Zieht dem Spieler den übergegebenen Schaden ab.
+    /// </summary>
+    /// <param name="damage"></param>
+    public void LooseHealth(float damage)
+    {
+        health -= damage;
     }
 
     /// <summary>
@@ -283,8 +300,13 @@ public class PlayerBehaviour : MonoBehaviour
     /// </summary>
     private void PlayJumpAnimation(float vertical)
     {
-        animator.SetBool("grounded", isGrounded);
+        animator.SetBool("grounded", (isHittingDoor || isGrounded));
         animator.SetFloat("jumpSpeed", vertical);
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        isGrounded = false;
     }
 
     /// <summary>

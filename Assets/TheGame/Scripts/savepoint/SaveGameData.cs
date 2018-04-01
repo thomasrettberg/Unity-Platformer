@@ -7,6 +7,7 @@ public class SaveGameData {
     public Vector3 playerPosition = Vector3.zero;
     public bool isOpenTriggered = false;
     public int currentLevel = 1;
+    public float playerHealth = 1f;
 
     public static string dataName = "savegame.xml";
     private static SaveGameData current;

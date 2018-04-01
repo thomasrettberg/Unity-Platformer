@@ -31,6 +31,10 @@ public class SavepointBehaviour : MonoBehaviour
     /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
-        saveGameData.Save();
+        PlayerBehaviour player = other.gameObject.GetComponent<PlayerBehaviour>();
+        if (player != null)
+        {
+            saveGameData.Save();
+        }
     }
 }

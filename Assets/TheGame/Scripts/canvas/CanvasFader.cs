@@ -10,18 +10,18 @@ public class CanvasFader : MonoBehaviour {
         image.gameObject.SetActive(true);
     }
 
-    private void PerformFading(float toAlpha)
+    private void PerformFading(float toAlpha, float duration)
     {
-        image.CrossFadeAlpha(toAlpha, 1f, false);
+        image.CrossFadeAlpha(toAlpha, duration, false);
     }
 
-    public void FadeIn()
+    public void FadeIn(float duration)
     {
-        PerformFading(0f);
+        PerformFading(0f, duration);
     }
 
-    public void FadeOut()
+    public void FadeOut(float duration)
     {
-        PerformFading(1f);
+        PerformFading(1f, duration);
     }
 }
