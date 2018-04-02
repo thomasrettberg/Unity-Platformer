@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Cinemachine;
+using System;
 
 /// <summary>
 /// Steuert das Spielerverhalten, z.B. die Steuerung, physikalisches Verhalten, etc.
@@ -240,6 +241,11 @@ public class PlayerBehaviour : MonoBehaviour
     public void LooseHealth(float damage)
     {
         health -= damage;
+    }
+
+    public void AddHealth(float newHealth)
+    {
+        health = Mathf.Clamp01(health + newHealth);
     }
 
     /// <summary>

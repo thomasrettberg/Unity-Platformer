@@ -1,14 +1,17 @@
 ﻿using UnityEngine;
 using System.IO;
+using System.Collections.Generic;
 
 [System.Serializable]
 public class SaveGameData {
 
     public Vector3 playerPosition = Vector3.zero;
+    public Vector3 barrelPosition = Vector3.zero;
     public bool isOpenTriggered = false;
     public int currentLevel = 1;
     public float playerHealth = 1f;
     public string lastTriggeredSavepoint = "";
+    public List<string> disabledHealtOrbIds = new List<string>();
 
     public static string dataName = "savegame.xml";
     private static SaveGameData current;

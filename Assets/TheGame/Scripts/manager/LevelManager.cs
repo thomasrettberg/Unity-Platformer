@@ -11,7 +11,6 @@ public class LevelManager : MonoBehaviour {
 
     private void Awake()
     {
-
         canvasFader = FindObjectOfType<CanvasFader>();
         SaveGameData.OnSave += Saveme;
         SceneManager.sceneLoaded += WhenSceneWasLoaded;
