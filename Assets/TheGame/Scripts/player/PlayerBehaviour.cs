@@ -137,6 +137,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             return false;
         }
+        health = 0f;
         SetToRagdollMode(true);
         isPlayerAlive = false;
         return true;
@@ -332,5 +333,10 @@ public class PlayerBehaviour : MonoBehaviour
     public bool IsPlayerAlive()
     {
         return isPlayerAlive;
+    }
+
+    public float GetHealth()
+    {
+        return health;
     }
 }
