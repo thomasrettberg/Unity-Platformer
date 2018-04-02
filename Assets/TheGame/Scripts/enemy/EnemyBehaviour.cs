@@ -7,6 +7,7 @@ public class EnemyBehaviour : MonoBehaviour {
 
     [Range(0.0f, 1.0f)]
     [SerializeField] float damageFactor;
+    private Rigidbody rig;
 
     private void Awake()
     {
@@ -16,6 +17,7 @@ public class EnemyBehaviour : MonoBehaviour {
     private void Start()
     {
         Loadme(SaveGameData.GetCurrentSaveGameData());
+        rig = GetComponent<Rigidbody>();
     }
 
     private void OnDestroy()
@@ -25,15 +27,15 @@ public class EnemyBehaviour : MonoBehaviour {
 
     private void Saveme(SaveGameData savegame)
     {
-        savegame.barrelPosition = transform.position;
+        savegame.enemyPosition = transform.position;
     }
 
     private void Loadme(SaveGameData savegame)
     {
-        if (savegame.barrelPosition != Vector3.zero && savegame != null &&
+        if (savegame != null && savegame.enemyPosition != Vector3.zero &&
             gameObject.scene.buildIndex == savegame.currentLevel)
         {
-            transform.position = savegame.barrelPosition;
+            transform.position = savegame.enemyPosition;
         }
     }
 
@@ -52,7 +54,8 @@ public class EnemyBehaviour : MonoBehaviour {
         PlayerBehaviour player = collision.gameObject.GetComponent<PlayerBehaviour>();
         if (player != null)
         {
-            player.LooseHealth(damageFactor);
+            float damage = Mathf.Clamp(damageFactor * rig.velocity.magnitude, 0.0f, damageFactor);
+            player.LooseHealth(damage);
         }
     }
 }

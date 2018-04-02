@@ -8,7 +8,7 @@ public class HealthOrbBehaviour : MonoBehaviour {
     [Range(0.0f, 1.0f)]
     [SerializeField] float newHealth;
 
-    [SerializeField] bool isActive;
+    [SerializeField] bool isActive = true;
 
     private string id;
 

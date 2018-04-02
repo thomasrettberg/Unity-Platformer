@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public class SaveGameData {
 
     public Vector3 playerPosition = Vector3.zero;
-    public Vector3 barrelPosition = Vector3.zero;
+    public Vector3 enemyPosition = Vector3.zero;
     public bool isOpenTriggered = false;
     public int currentLevel = 1;
     public float playerHealth = 1f;
