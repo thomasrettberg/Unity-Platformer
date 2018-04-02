@@ -62,6 +62,10 @@ public class LevelManager : MonoBehaviour {
             SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(1).buildIndex);
         }
         SceneManager.LoadScene(SceneUtility.GetScenePathByBuildIndex(levelInBuildIndex), LoadSceneMode.Additive);
+        if (levelInBuildIndex == 1)
+        {
+            SaveGameData.SetCurrentSaveGameData(new SaveGameData());
+        }
     }
 
     /// <summary>
