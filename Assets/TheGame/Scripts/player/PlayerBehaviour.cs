@@ -16,12 +16,50 @@ public class PlayerBehaviour : MonoBehaviour
     /// des Modells zu steuern.
     /// </summary>
     [SerializeField] GameObject model;
+
+    /// <summary>
+    /// Radius des Box-Colliders während der Bewegung.
+    /// </summary>
     [SerializeField] float radiusDuringMoving = 0.5f;
+
+    /// <summary>
+    /// GameObject, auf welche die Cinemachine via LookAt
+    /// schauen sóll.
+    /// </summary>
     [SerializeField] GameObject cameraLookAtObject;
+
+    /// <summary>
+    /// Das Capsule-Collider Objekt 
+    /// des Spíelers.
+    /// </summary>
     private CapsuleCollider capsule;
+
+    /// <summary>
+    /// Zwischenspeicher, um den Radius des Capsule-Colliders beim Stillstand
+    /// zurücksetzen zu können.
+    /// </summary>
     private float oldRadius;
+
+    /// <summary>
+    /// Status des Spielers, ob er noch lebt.
+    /// </summary>
     private bool isPlayerAlive = true;
+
+    /// <summary>
+    /// Gesundheit des Spielers.
+    /// </summary>
     private float health = 1f;
+
+    /// <summary>
+    /// Zuletzt ausgeführter Speicherpunkt.
+    /// </summary>
+    private string lastTriggeredSavePoint = "initial";
+
+    /// <summary>
+    /// In welchem Verhältnis steht der Spieler in seiner Welt.
+    /// Wird unter anderem zur Berechnung des Steigungswinkel, aber 
+    /// auch um zu Berechnen, ob der Spieler fällt oder springt.
+    /// </summary>
     private RaycastHit hitInfo;
 
     /// <summary>
@@ -61,6 +99,10 @@ public class PlayerBehaviour : MonoBehaviour
     /// False, die Spielfigur fällt oder springt gerade.
     /// </summary>
     private bool isGrounded = true;
+
+    /// <summary>
+    /// Berührt der Spieler eine Tür?
+    /// </summary>
     private bool isHittingDoor = false;
 
     /// <summary>
@@ -92,8 +134,12 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void Saveme(SaveGameData savegame)
     {
-        savegame.playerPosition = transform.position;
-        savegame.playerHealth = health;
+        if (!lastTriggeredSavePoint.Equals(savegame.lastTriggeredSavepoint))
+        {
+            savegame.playerPosition = transform.position;
+            savegame.playerHealth = health;
+            savegame.lastTriggeredSavepoint = lastTriggeredSavePoint;
+        }
     }
 
     private void Loadme(SaveGameData savegame)
@@ -102,7 +148,8 @@ public class PlayerBehaviour : MonoBehaviour
             gameObject.scene.buildIndex == savegame.currentLevel)
         {
             transform.position = savegame.playerPosition;
-            health = savegame.playerHealth;
+            health = Mathf.Clamp01(savegame.playerHealth);
+            lastTriggeredSavePoint = savegame.lastTriggeredSavepoint;
         }
     }
 
@@ -153,7 +200,8 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void OnCollisionExit(Collision collision)
     {
-      isGrounded = Physics.Raycast(transform.position + (Vector3.up * 0.1f), Vector3.down, out hitInfo, 0.25f);
+        isGrounded = Physics.Raycast(transform.position + (Vector3.up * 0.1f), Vector3.down, out hitInfo, 0.20f);
+        isHittingDoor = false;
     }
 
     /// <summary>
@@ -339,5 +387,10 @@ public class PlayerBehaviour : MonoBehaviour
     public float GetHealth()
     {
         return health;
+    }
+
+    public void SetTriggeredSavepoint(string savepoint)
+    {
+        lastTriggeredSavePoint = savepoint;
     }
 }

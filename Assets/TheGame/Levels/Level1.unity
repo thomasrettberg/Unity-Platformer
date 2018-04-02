@@ -269,6 +269,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1020934604065334, guid: d17c66f05fd665243a2a5737eab83258, type: 2}
+      propertyPath: m_Name
+      value: Start Level1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d17c66f05fd665243a2a5737eab83258, type: 2}
   m_IsPrefabParent: 0
@@ -450,7 +454,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1020934604065334, guid: d17c66f05fd665243a2a5737eab83258, type: 2}
       propertyPath: m_Name
-      value: Speicherpunkt (1)
+      value: After door
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d17c66f05fd665243a2a5737eab83258, type: 2}

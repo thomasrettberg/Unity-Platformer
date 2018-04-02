@@ -34,6 +34,7 @@ public class SavepointBehaviour : MonoBehaviour
         PlayerBehaviour player = other.gameObject.GetComponent<PlayerBehaviour>();
         if (player != null && player.IsPlayerAlive())
         {
+            player.SetTriggeredSavepoint(gameObject.name);
             saveGameData.Save();
         }
     }
