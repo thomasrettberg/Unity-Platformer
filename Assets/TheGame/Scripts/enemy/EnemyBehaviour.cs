@@ -47,8 +47,10 @@ public class EnemyBehaviour : MonoBehaviour {
     /// <summary>
     /// Wenn der Spieler getroffen wird, ziehe ihm
     /// den Schaden ab, welcher im Inspector eingestellt ist.
+    /// Der Schaden richtet sich nach der Geschwindigkeit, kann aber niemals
+    /// den Schaden aus dem Inspector überschreiten.
     /// </summary>
-    /// <param name="collision"></param>
+    /// <param name="collision">Collision-Objekt</param>
     private void HandlePlayerCollision(Collision collision)
     {
         PlayerBehaviour player = collision.gameObject.GetComponent<PlayerBehaviour>();
