@@ -102,6 +102,7 @@ public class PlayerBehaviour : MonoBehaviour
             gameObject.scene.buildIndex == savegame.currentLevel)
         {
             transform.position = savegame.playerPosition;
+            health = savegame.playerHealth;
         }
     }
 
