@@ -4,11 +4,13 @@ public class MenuManager : MonoBehaviour {
 
     private Canvas canvas;
     private bool isInputTriggered = false;
+    private LevelManager levelManager;
 
     private void Start()
     {
         canvas = GetComponent<Canvas>();
         canvas.enabled = false;
+        levelManager = FindObjectOfType<LevelManager>();
     }
 
     // Update is called once per frame
@@ -21,8 +23,8 @@ public class MenuManager : MonoBehaviour {
     {
         if (canvas.enabled)
         {
-            SaveGameData.SetCurrentSaveGameData(new SaveGameData());
-            LevelManager.SwitchToScene(1);
+            SaveGameData.current = new SaveGameData();
+            levelManager.SwitchToScene(1);
             canvas.enabled = false;
             PauseOrContinueGame();
         }

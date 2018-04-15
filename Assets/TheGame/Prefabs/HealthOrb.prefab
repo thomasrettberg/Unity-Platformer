@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114884617846394826}
   m_Layer: 0
   m_Name: HealthOrb
-  m_TagString: Untagged
+  m_TagString: health
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1883626739277390}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.77, z: 0}
+  m_LocalPosition: {x: 0, y: 0.77, z: 5.2}
   m_LocalScale: {x: 0.34034312, y: 0.34034312, z: 0.34034312}
   m_Children: []
   m_Father: {fileID: 0}
@@ -96,6 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   newHealth: 0.25
+  isActive: 1
 --- !u!135 &135519320127063880
 SphereCollider:
   m_ObjectHideFlags: 1

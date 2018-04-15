@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,14 +13,14 @@ public class LevelManager : MonoBehaviour {
 
     private void Awake()
     {
+        LoadLastSaveGame();
         canvasFader = FindObjectOfType<CanvasFader>();
-        SaveGameData.OnSave += Saveme;
         SceneManager.sceneLoaded += WhenSceneWasLoaded;
     }
 
     private void Start()
     {
-        RevertToSaveGame(true);
+        Load();
     }
 
     private void Update()
@@ -28,7 +30,6 @@ public class LevelManager : MonoBehaviour {
 
     private void OnDestroy()
     {
-        SaveGameData.OnSave -= Saveme;
         SceneManager.sceneLoaded -= WhenSceneWasLoaded;
     }
 
@@ -40,32 +41,20 @@ public class LevelManager : MonoBehaviour {
         }
     }
 
-    private void Saveme(SaveGameData savegame)
+    private void Load()
     {
-        if (SceneManager.sceneCount > 1)
-        {
-            savegame.currentLevel = SceneManager.GetSceneAt(1).buildIndex;
-        }
-    }
-
-    private void Loadme(SaveGameData savegame)
-    {
-        SwitchToScene(savegame.currentLevel);
-        savegame.TriggerOnLoad();
+        Debug.Log("Lade Level: " + SaveGameData.current.currentLevel);
+        SwitchToScene(SaveGameData.current.currentLevel);
         revertToSaveGame = false;
     }
 
-    public static void SwitchToScene(int levelInBuildIndex)
+    public void SwitchToScene(int levelInBuildIndex)
     {
-        if (SceneManager.sceneCount > 1)
+        for (int i = SceneManager.sceneCount - 1; i > 0; i = i - 1)
         {
-            SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(1).buildIndex);
+            SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(i).name);
         }
         SceneManager.LoadScene(SceneUtility.GetScenePathByBuildIndex(levelInBuildIndex), LoadSceneMode.Additive);
-        if (levelInBuildIndex == 1)
-        {
-            SaveGameData.SetCurrentSaveGameData(new SaveGameData());
-        }
     }
 
     /// <summary>
@@ -73,7 +62,7 @@ public class LevelManager : MonoBehaviour {
     /// </summary>
     private void LoadLastSaveGame()
     {
-        savegame = SaveGameData.LoadData(); 
+        SaveGameData.current = SaveGameData.LoadData();
     }
 
     /// <summary>
@@ -83,7 +72,7 @@ public class LevelManager : MonoBehaviour {
     private IEnumerator HandlePlayerAliveStatus()
     {
         player = FindObjectOfType<PlayerBehaviour>();
-        if (player.IsPlayerAlive()) { yield break; }
+        if (player == null || player.IsPlayerAlive()) { yield break; }
         player.enabled = false;
         revertToSaveGame = true;
         canvasFader.FadeOut(3f);
@@ -100,7 +89,6 @@ public class LevelManager : MonoBehaviour {
         if (revertToSaveGame)
         {
             LoadLastSaveGame();
-            Loadme(savegame);
         }
     }
 }

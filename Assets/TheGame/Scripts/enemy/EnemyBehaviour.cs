@@ -12,30 +12,55 @@ public class EnemyBehaviour : MonoBehaviour {
     private void Awake()
     {
         SaveGameData.OnSave += Saveme;
+        SaveGameData.OnLoad += Loadme;
     }
 
     private void Start()
     {
-        Loadme(SaveGameData.GetCurrentSaveGameData());
         rig = GetComponent<Rigidbody>();
+        Loadme(SaveGameData.current);
     }
 
     private void OnDestroy()
     {
+        SaveGameData.OnLoad -= Loadme;
         SaveGameData.OnSave -= Saveme;
     }
 
     private void Saveme(SaveGameData savegame)
     {
-        savegame.enemyPosition = transform.position;
+        SaveObject saveObject = savegame.FindObjectById(gameObject.name);
+        if (saveObject == null)
+        {
+            saveObject = new SaveObject();
+            UpdateSaveObject(saveObject);
+            savegame.saveObject.Add(saveObject);
+        }
+        else
+        {
+            UpdateSaveObject(saveObject);
+        }
+    }
+
+    private void UpdateSaveObject(SaveObject saveObject)
+    {
+        saveObject.Id = gameObject.name;
+        saveObject.Tag = gameObject.tag;
+        saveObject.Position = transform.position;
     }
 
     private void Loadme(SaveGameData savegame)
     {
-        if (savegame != null && savegame.enemyPosition != Vector3.zero &&
+        if (savegame != null &&
             gameObject.scene.buildIndex == savegame.currentLevel)
         {
-            transform.position = savegame.enemyPosition;
+            SaveObject saveObject = savegame.FindObjectById(gameObject.name);
+            switch ((saveObject != null) ? saveObject.Tag : "")
+            {
+                case "barrel":
+                    transform.position = saveObject.Position;
+                    break;
+            }
         }
     }
 

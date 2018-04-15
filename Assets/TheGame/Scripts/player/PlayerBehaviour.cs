@@ -115,6 +115,7 @@ public class PlayerBehaviour : MonoBehaviour
     private void Awake()
     {
         SaveGameData.OnSave += Saveme;
+        SaveGameData.OnLoad += Loadme;
         InitiateCinemachine();
     }
 
@@ -130,6 +131,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void OnDestroy()
     {
+        SaveGameData.OnLoad -= Loadme;
         SaveGameData.OnSave -= Saveme;
     }
 
@@ -140,14 +142,17 @@ public class PlayerBehaviour : MonoBehaviour
             savegame.playerPosition = transform.position;
             savegame.playerHealth = health;
             savegame.lastTriggeredSavepoint = lastTriggeredSavePoint;
+            savegame.currentLevel = gameObject.scene.buildIndex;
         }
     }
 
     private void Loadme(SaveGameData savegame)
     {
+        Debug.Log("Lade Spielerinformationen vor Überprüfung");
         if (savegame != null &&
             gameObject.scene.buildIndex == savegame.currentLevel)
         {
+            Debug.Log("Lade Spielerinformationen nach Überprüfung");
             transform.position = savegame.playerPosition;
             health = Mathf.Clamp01(savegame.playerHealth);
             lastTriggeredSavePoint = savegame.lastTriggeredSavepoint;
@@ -162,7 +167,7 @@ public class PlayerBehaviour : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         capsule = GetComponent<CapsuleCollider>();
         oldRadius = capsule.radius;
-        Loadme(SaveGameData.GetCurrentSaveGameData());
+        Loadme(SaveGameData.current);
     }
 
     // Update is called once per frame

@@ -6,15 +6,13 @@ using System.Collections.Generic;
 public class SaveGameData {
 
     public Vector3 playerPosition = Vector3.zero;
-    public Vector3 enemyPosition = Vector3.zero;
-    public bool isOpenTriggered = false;
     public int currentLevel = 1;
     public float playerHealth = 1f;
     public string lastTriggeredSavepoint = "";
-    public List<string> disabledHealtOrbIds = new List<string>();
+    public List<SaveObject> saveObject = new List<SaveObject>();
 
     public static string dataName = "savegame.xml";
-    private static SaveGameData current;
+    public static SaveGameData current = new SaveGameData();
 
     public delegate void SaveHandler(SaveGameData savegame);
     public static event SaveHandler OnSave;
@@ -46,23 +44,14 @@ public class SaveGameData {
     /// </summary>
     public static SaveGameData LoadData()
     {
-        SaveGameData savegame = new SaveGameData();
+        SaveGameData save = new SaveGameData();
         string fileName = GetFilename(dataName);
         if (File.Exists(fileName))
         {
-            savegame = XmlUtils.Load<SaveGameData>(File.ReadAllText(GetFilename(dataName)));
-            current = savegame;
+            save = XmlUtils.Load<SaveGameData>(File.ReadAllText(fileName));
         }
-        
-        return savegame;
-    }
-
-    public void TriggerOnLoad()
-    {
-        if (OnLoad != null)
-        {
-            OnLoad(this);
-        }
+        if (OnLoad != null) OnLoad(save);
+        return save;
     }
 
     private static string GetFilename(string dataName)
@@ -70,13 +59,14 @@ public class SaveGameData {
         return Application.persistentDataPath + System.IO.Path.DirectorySeparatorChar + dataName;
     }
 
-    public static SaveGameData GetCurrentSaveGameData()
+    public SaveObject FindObjectById(string id)
     {
-        return current;
-    }
-
-    public static void SetCurrentSaveGameData(SaveGameData savegame)
-    {
-        current = savegame;
+        SaveObject saveObject = current.saveObject.Find(
+                    delegate (SaveObject so)
+                    {
+                        return so.Id == id;
+                    }
+                );
+        return saveObject;
     }
 }

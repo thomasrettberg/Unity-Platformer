@@ -10,17 +10,15 @@ public class HealthOrbBehaviour : MonoBehaviour {
 
     [SerializeField] bool isActive = true;
 
-    private string id;
-
     private void Awake()
     {
         SaveGameData.OnSave += Saveme;
-        id = gameObject.name;
+        SaveGameData.OnLoad += Loadme;
     }
 
     private void Start()
     {
-        Loadme(SaveGameData.GetCurrentSaveGameData());
+        Loadme(SaveGameData.current);
         gameObject.SetActive(isActive);
     }
 
@@ -29,20 +27,24 @@ public class HealthOrbBehaviour : MonoBehaviour {
         if (savegame != null &&
             gameObject.scene.buildIndex == savegame.currentLevel)
         {
-            isActive = !savegame.disabledHealtOrbIds.Contains(id);
+            isActive = savegame.FindObjectById(gameObject.name) == null;
         }
     }
 
     private void Saveme(SaveGameData savegame)
     {
-        if (id != null && !gameObject.activeSelf && !savegame.disabledHealtOrbIds.Contains(id))
+        if (savegame.FindObjectById(gameObject.name) == null && !isActive)
         {
-            savegame.disabledHealtOrbIds.Add(id);
+            SaveObject saveObject = new SaveObject();
+            saveObject.Id = gameObject.name;
+            saveObject.Tag = gameObject.tag;
+            savegame.saveObject.Add(saveObject);
         }
     }
 
     private void OnDestroy()
     {
+        SaveGameData.OnLoad -= Loadme;
         SaveGameData.OnSave -= Saveme;
     }
 

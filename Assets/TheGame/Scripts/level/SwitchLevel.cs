@@ -3,6 +3,12 @@
 public class SwitchLevel : MonoBehaviour {
 
     [SerializeField] int levelIndex = 1;
+    private LevelManager levelManager;
+
+    private void Start()
+    {
+        levelManager = FindObjectOfType<LevelManager>();
+    }
 
     private void OnDrawGizmos()
     {
@@ -11,6 +17,7 @@ public class SwitchLevel : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        LevelManager.SwitchToScene(levelIndex);
+        levelManager.SwitchToScene(levelIndex);
+        SaveGameData.current = new SaveGameData();
     }
 }

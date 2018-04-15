@@ -3,20 +3,6 @@
 public class SavepointBehaviour : MonoBehaviour
 {
     /// <summary>
-    /// Nutzen der SaveGameData-Komponente via Komposition.
-    /// </summary>
-    public SaveGameData saveGameData = null;
-
-    /// <summary>
-    /// SaveGameData kann in Unity nur über Start oder Awake 
-    /// initialisiert werden.
-    /// </summary>
-    private void Start()
-    {
-        saveGameData = new SaveGameData();
-    }
-
-    /// <summary>
     /// Zeichnungsverhalten im Scene, damit die eigentlich unsichtbaren 
     /// SavePoints zur besseren Verarbeitung sichtbar werden.
     /// </summary>
@@ -32,10 +18,10 @@ public class SavepointBehaviour : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         PlayerBehaviour player = other.gameObject.GetComponent<PlayerBehaviour>();
-        if (player != null && player.IsPlayerAlive())
+        if (player != null && player.IsPlayerAlive() && !gameObject.name.Equals(SaveGameData.current.lastTriggeredSavepoint))
         {
             player.SetTriggeredSavepoint(gameObject.name);
-            saveGameData.Save();
+            SaveGameData.current.Save();
         }
     }
 }

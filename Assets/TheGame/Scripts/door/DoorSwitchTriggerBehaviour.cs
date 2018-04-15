@@ -24,20 +24,27 @@ public class DoorSwitchTriggerBehaviour : MonoBehaviour {
         SaveGameData.OnLoad += Loadme;
     }
 
+    private void Start()
+    {
+        Loadme(SaveGameData.current);
+    }
+
     private void OnDestroy()
     {
         SaveGameData.OnLoad -= Loadme;
         SaveGameData.OnSave -= Saveme;
     }
 
-    private void Start()
-    {
-        Loadme(SaveGameData.GetCurrentSaveGameData());
-    }
-
     private void Saveme(SaveGameData savegame)
     {
-        savegame.isOpenTriggered = doorAnimator.GetBool("isOpenTriggered");
+        if (savegame.FindObjectById(gameObject.name) == null 
+            && doorAnimator.GetBool("isOpenTriggered"))
+        {
+            SaveObject saveObject = new SaveObject();
+            saveObject.Id = gameObject.name;
+            saveObject.Tag = gameObject.tag;
+            savegame.saveObject.Add(saveObject);
+        }
     }
 
     private void Loadme(SaveGameData savegame)
@@ -45,7 +52,11 @@ public class DoorSwitchTriggerBehaviour : MonoBehaviour {
         if (savegame != null &&  
             gameObject.scene.buildIndex == savegame.currentLevel)
         {
-            HandleDoorSwitch(savegame.isOpenTriggered);
+            SaveObject saveObject = savegame.FindObjectById(gameObject.name);
+            if (saveObject != null)
+            {
+                HandleDoorSwitch(true);
+            }
         }
     }
 

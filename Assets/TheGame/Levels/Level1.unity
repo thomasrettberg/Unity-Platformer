@@ -163,17 +163,9 @@ Prefab:
       propertyPath: consoleMesh
       value: 
       objectReference: {fileID: 1832917480}
-    - target: {fileID: 4839168529367838, guid: 37566528213c3ab4383268d5f379d602, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 4839168529367838, guid: 37566528213c3ab4383268d5f379d602, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 0.009999995
-      objectReference: {fileID: 0}
-    - target: {fileID: 4839168529367838, guid: 37566528213c3ab4383268d5f379d602, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 0.009999995
+    - target: {fileID: 1375626641120618, guid: 37566528213c3ab4383268d5f379d602, type: 2}
+      propertyPath: m_Name
+      value: DoorSwitchTrigger1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 37566528213c3ab4383268d5f379d602, type: 2}
@@ -247,7 +239,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4371090008328080, guid: d17c66f05fd665243a2a5737eab83258, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0.02
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 4371090008328080, guid: d17c66f05fd665243a2a5737eab83258, type: 2}
       propertyPath: m_LocalRotation.x
@@ -691,6 +683,10 @@ Prefab:
     - target: {fileID: 100000, guid: 4268e9c70ea8c1941857ab28a5c7c996, type: 3}
       propertyPath: m_TagString
       value: door
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 4268e9c70ea8c1941857ab28a5c7c996, type: 3}
+      propertyPath: m_Name
+      value: DoorMetal1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4268e9c70ea8c1941857ab28a5c7c996, type: 3}
