@@ -148,11 +148,9 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void Loadme(SaveGameData savegame)
     {
-        Debug.Log("Lade Spielerinformationen vor Überprüfung");
         if (savegame != null &&
             gameObject.scene.buildIndex == savegame.currentLevel)
         {
-            Debug.Log("Lade Spielerinformationen nach Überprüfung");
             transform.position = savegame.playerPosition;
             health = Mathf.Clamp01(savegame.playerHealth);
             lastTriggeredSavePoint = savegame.lastTriggeredSavepoint;

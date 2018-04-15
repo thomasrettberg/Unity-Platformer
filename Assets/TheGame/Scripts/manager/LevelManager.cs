@@ -13,13 +13,14 @@ public class LevelManager : MonoBehaviour {
 
     private void Awake()
     {
-        LoadLastSaveGame();
         canvasFader = FindObjectOfType<CanvasFader>();
         SceneManager.sceneLoaded += WhenSceneWasLoaded;
     }
 
     private void Start()
     {
+
+        LoadLastSaveGame();
         Load();
     }
 
@@ -43,9 +44,8 @@ public class LevelManager : MonoBehaviour {
 
     private void Load()
     {
-        Debug.Log("Lade Level: " + SaveGameData.current.currentLevel);
-        SwitchToScene(SaveGameData.current.currentLevel);
         revertToSaveGame = false;
+        SwitchToScene(SaveGameData.current.currentLevel);
     }
 
     public void SwitchToScene(int levelInBuildIndex)
@@ -88,7 +88,7 @@ public class LevelManager : MonoBehaviour {
     {
         if (revertToSaveGame)
         {
-            LoadLastSaveGame();
+            Load();
         }
     }
 }
